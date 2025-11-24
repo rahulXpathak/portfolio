@@ -9,11 +9,15 @@ import {
   FileText, 
   Layers, 
   Globe,
-  MapPin,       // For Airbnb
-  GitBranch     // For Version Control
+  MapPin,       
+  GitBranch     
 } from 'lucide-react';
+import { useOnScreen } from '../../hooks/useOnScreen';
 
 const Projects = () => {
+  // Hook for scroll animation
+  const [ref, isVisible] = useOnScreen({ threshold: 0.1 });
+
   const projects = [
     {
       title: "Lung Tumor Segmentation",
@@ -21,7 +25,7 @@ const Projects = () => {
       tech: ["Python", "OpenCV", "Deep Learning", "TensorFlow"],
       desc: "Automated detection of lung tumors using advanced image segmentation techniques. Includes a published research paper and certification.",
       icon: Brain,
-      highlight: true, // Takes up 2 columns
+      highlight: true, 
       link: "#"
     },
     {
@@ -84,7 +88,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-32 bg-[#050505] border-t border-white/10">
+    <section id="projects" className="py-32 bg-[#050505] border-t border-white/10 perspective-2000">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Section Header */}
@@ -99,42 +103,58 @@ const Projects = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <div 
               key={index}
-              className={`group relative bg-neutral-900 border border-white/10 p-8 flex flex-col justify-between hover:border-blue-500/50 transition-all duration-500 ${project.highlight ? 'lg:col-span-2 bg-gradient-to-br from-neutral-900 to-blue-900/20' : ''}`}
+              // 3D CARD CONTAINER
+              className={`
+                group relative 
+                bg-neutral-900/40 border border-white/10 
+                p-8 
+                flex flex-col justify-between 
+                rounded-xl backdrop-blur-md
+                transform-style-3d
+                transition-all duration-500 ease-out
+                hover:border-blue-500/30
+                hover:shadow-[0_30px_60px_-15px_rgba(37,99,235,0.25)]
+                project-card-3d
+                ${project.highlight ? 'lg:col-span-2 bg-gradient-to-br from-neutral-900/80 to-blue-900/20' : ''}
+                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}
+              `}
+              style={{ transitionDelay: `${index * 100}ms` }}
             >
-              {/* Hover Slide Effect */}
-              <div className="absolute inset-0 bg-blue-600/5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out pointer-events-none"></div>
+              {/* Hover Slide Effect (Inner Glow) */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl pointer-events-none translate-z-0"></div>
 
-              <div>
+              {/* CONTENT WRAPPER (Floats above card) */}
+              <div className="transform-style-3d translate-z-20 group-hover:translate-z-10 transition-transform duration-500">
                 {/* Header */}
-                <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-white/5 border border-white/10 text-blue-400">
-                    <project.icon size={20} />
+                <div className="flex justify-between items-start mb-6 relative z-10">
+                  <div className="p-3 bg-white/5 border border-white/10 text-blue-400 rounded-lg group-hover:bg-blue-500/20 group-hover:text-blue-300 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                    <project.icon size={24} />
                   </div>
-                  <div className="flex gap-3">
-                     <a href={project.link} className="text-gray-500 hover:text-white transition-colors"><Github size={18} /></a>
-                     <a href={project.link} className="text-gray-500 hover:text-white transition-colors"><ExternalLink size={18} /></a>
+                  <div className="flex gap-3 translate-z-30">
+                     <a href={project.link} className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"><Github size={20} /></a>
+                     <a href={project.link} className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"><ExternalLink size={20} /></a>
                   </div>
                 </div>
 
                 {/* Content */}
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{project.title}</h3>
+                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-blue-200 transition-colors relative z-10 translate-z-10">{project.title}</h3>
                 
                 {/* Subtitle / Date */}
-                <div className="text-xs font-mono text-gray-500 mb-4 uppercase tracking-wider">
+                <div className="text-xs font-mono text-gray-500 mb-4 uppercase tracking-wider relative z-10">
                   {project.date ? project.date : project.category}
                 </div>
 
-                <p className="text-gray-400 leading-relaxed mb-6 text-sm">
+                <p className="text-gray-400 leading-relaxed mb-6 text-sm relative z-10 group-hover:text-gray-300 transition-colors">
                   {project.desc}
                 </p>
 
                 {/* Special Badge for Research Paper */}
                 {project.highlight && (
-                  <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-3 py-1 mb-6">
+                  <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 px-4 py-1.5 mb-6 rounded-full relative z-10 shadow-[0_0_15px_rgba(37,99,235,0.3)]">
                     <FileText size={12} className="text-blue-400" />
                     <span className="text-blue-400 text-xs font-bold">PAPER PUBLISHED</span>
                   </div>
@@ -142,9 +162,9 @@ const Projects = () => {
               </div>
 
               {/* Tags */}
-              <div className="flex flex-wrap gap-2 mt-auto">
+              <div className="flex flex-wrap gap-2 mt-auto relative z-10 translate-z-20">
                 {project.tech.map((t, i) => (
-                  <span key={i} className="text-[10px] font-mono border border-white/10 px-2 py-1 text-gray-400 group-hover:border-blue-500/30 group-hover:text-blue-300 transition-colors">
+                  <span key={i} className="text-[10px] font-mono border border-white/10 px-2 py-1 text-gray-400 rounded bg-black/40 group-hover:border-blue-500/30 group-hover:text-blue-300 transition-colors">
                     {t}
                   </span>
                 ))}
@@ -153,6 +173,25 @@ const Projects = () => {
           ))}
         </div>
       </div>
+
+      <style>{`
+        .perspective-2000 { perspective: 2000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        
+        /* Depth Utility Classes */
+        .translate-z-0 { transform: translateZ(0px); }
+        .translate-z-10 { transform: translateZ(10px); }
+        .translate-z-20 { transform: translateZ(20px); }
+        .translate-z-30 { transform: translateZ(30px); }
+
+        /* 3D Rotation on Hover */
+        .project-card-3d {
+          transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, box-shadow 0.3s;
+        }
+        .project-card-3d:hover {
+          transform: translateY(-10px) rotateX(2deg) rotateY(-2deg);
+        }
+      `}</style>
     </section>
   );
 };
