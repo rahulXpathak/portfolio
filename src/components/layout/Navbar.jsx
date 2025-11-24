@@ -12,10 +12,10 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Work', href: '#features' },
-    { name: 'Stories', href: '#testimonials' },
-    { name: 'Founder', href: '#founder' },
-    { name: 'Contact', href: '#cta' },
+    { name: 'Skills', href: '#features' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Certifications', href: '#testimonials' },
+    { name: 'About', href: '#founder' },
   ];
 
   return (
@@ -36,7 +36,7 @@ const Navbar = () => {
               PATHAK<span className="text-blue-600 group-hover:text-white transition-colors">.</span>
             </span>
             <span className="text-[9px] tracking-[0.3em] text-gray-500 font-mono mt-1 group-hover:text-white transition-colors duration-500 uppercase">
-              Design Engineer
+              Full Stack Dev
             </span>
           </div>
         </a>
@@ -53,9 +53,14 @@ const Navbar = () => {
               <span className="absolute bottom-0 left-0 w-full h-px bg-blue-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
             </a>
           ))}
-          <button className="bg-white text-black px-6 py-2 text-sm font-bold hover:bg-blue-600 hover:text-white transition-all duration-300 active:scale-95">
-            LET'S TALK
-          </button>
+          
+          {/* Action Button - Updated Title */}
+          <a 
+            href="#cta"
+            className="bg-white text-black px-6 py-2 text-sm font-bold hover:bg-blue-600 hover:text-white transition-all duration-300 active:scale-95"
+          >
+            LET'S CONNECT
+          </a>
         </div>
 
         {/* Mobile Toggle */}
@@ -76,6 +81,14 @@ const Navbar = () => {
             {link.name}
           </a>
         ))}
+        {/* Mobile Action Button */}
+        <a 
+            href="#cta"
+            onClick={() => setIsOpen(false)}
+            className="text-3xl font-bold text-blue-500 hover:text-white transition-colors"
+        >
+            LET'S CONNECT
+        </a>
       </div>
     </nav>
   );
