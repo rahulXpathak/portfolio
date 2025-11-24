@@ -29,14 +29,19 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
-            <a href="#features" className="group relative px-8 py-4 bg-blue-600 text-white font-bold text-sm tracking-widest overflow-hidden w-full sm:w-auto text-center">
+            {/* BUTTON 1: VIEW WORK (FIXED) */}
+            <a 
+              href="#features" 
+              className="group relative px-8 py-4 bg-blue-600 text-white hover:text-blue-600 font-bold text-sm tracking-widest overflow-hidden w-full sm:w-auto text-center transition-colors duration-300"
+            >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 VIEW WORK <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
-              <div className="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out mix-blend-screen"></div>
+              {/* REMOVED mix-blend-screen to fix text visibility */}
+              <div className="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
             </a>
             
-            {/* Updated to Download CV action */}
+            {/* BUTTON 2: DOWNLOAD CV */}
             <a href="/resume.pdf" download className="group px-8 py-4 border border-white/20 text-white font-bold text-sm tracking-widest hover:bg-white hover:text-black transition-all duration-300 w-full sm:w-auto text-center flex items-center justify-center gap-2">
               <span>DOWNLOAD CV</span>
               <Download className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />

@@ -1,5 +1,7 @@
 import React from 'react';
 import { useOnScreen } from '../../hooks/useOnScreen';
+// Import your image
+import rahulImage from '../../assets/Rahul.jpeg';
 
 const Founder = () => {
   const [ref, isVisible] = useOnScreen({ threshold: 0.3 });
@@ -12,11 +14,16 @@ const Founder = () => {
           ref={ref}
           className={`relative ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'} transition-all duration-1000`}
         >
-          <div className="relative w-full aspect-[3/4] bg-neutral-800 overflow-hidden group">
+          {/* Changed aspect ratio to aspect-[4/5] to better fit a portrait photo 
+             without cropping too much 
+          */}
+          <div className="relative w-full aspect-[4/5] bg-neutral-800 overflow-hidden group">
             <img 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+              src={rahulImage} 
               alt="Rahul Pathak" 
-              className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
+              // ADDED: object-top (Keeps head in frame)
+              // KEPT: object-cover (Fills box without stretching)
+              className="w-full h-full object-cover object-top filter grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
             />
             <div className="absolute inset-0 border-[1px] border-white/10 m-4 z-10 transition-all duration-500 group-hover:m-0 group-hover:border-blue-500"></div>
           </div>
@@ -24,15 +31,15 @@ const Founder = () => {
 
         <div className={`space-y-8 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'} transition-all duration-1000 delay-300`}>
           <div>
-            <h2 className="text-blue-500 font-mono text-sm mb-2 tracking-widest">THE FOUNDER</h2>
+            <h2 className="text-blue-500 font-mono text-sm mb-2 tracking-widest">ABOUT ME</h2>
             <h3 className="text-5xl font-bold text-white mb-6">RAHUL PATHAK</h3>
           </div>
           
           <p className="text-gray-400 text-lg leading-relaxed">
-            I don't just write code; I architect solutions. With a background in systems engineering and design, I bridge the gap between "looks good" and "works perfectly."
+            I don't just write code; I solve problems. With a deep focus on the MERN stack and React Native, I bridge the gap between complex backend logic and intuitive, pixel-perfect user interfaces.
           </p>
           <p className="text-gray-400 text-lg leading-relaxed">
-            My studio, <span className="text-white font-bold">Pathak</span>, was born from a frustration with bloated agencies. We keep it lean, sharp, and delivered on time.
+            I am a builder at heart, constantly exploring new technologies like <span className="text-white font-bold">Next.js</span> and <span className="text-white font-bold">Data Science</span> to create software that is not just functional, but exceptional. I am currently seeking a role where I can contribute to high-impact engineering teams.
           </p>
 
           <div className="flex gap-4 pt-4">

@@ -3,6 +3,7 @@ import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
 import Features from './components/sections/Features';
+import Projects from './components/sections/Projects'; // <--- IMPORT THIS
 import Testimonials from './components/sections/Testimonials';
 import Founder from './components/sections/Founder';
 import CTA from './components/sections/CTA';
@@ -13,12 +14,13 @@ const App = () => {
       <Navbar />
       <Hero />
       <Features />
+      <Projects /> {/* <--- ADD THIS HERE */}
       <Testimonials />
       <Founder />
       <CTA />
       <Footer />
       
-      {/* Global Styles for animations not in standard Tailwind */}
+      {/* Global Styles... */}
       <style>{`
         @keyframes fade-in-up {
           0% { opacity: 0; transform: translateY(20px); }
