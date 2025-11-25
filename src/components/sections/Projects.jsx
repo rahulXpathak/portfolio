@@ -10,8 +10,18 @@ import {
   Layers, 
   Globe,
   MapPin,       
-  GitBranch     
+  GitBranch,
+  FileCheck 
 } from 'lucide-react';
+
+// --- EXISTING PDF IMPORT ---
+import lungTumorPdf from '../../assets/paper/Lung_Tumor_Sengmentation.pdf';
+
+// --- 1. NEW CERTIFICATE IMAGE IMPORTS (YOU MUST ADD THESE) ---
+// IMPORTANT: Adjust the path and file names below to match your files in src/assets
+import seminarCertImage from '../../assets/certificates/Seminar_Certificate.png'; 
+import publishCertImage from '../../assets/certificates/Publish_Certificate.png'; 
+
 import { useOnScreen } from '../../hooks/useOnScreen';
 
 const Projects = () => {
@@ -22,11 +32,15 @@ const Projects = () => {
     {
       title: "Lung Tumor Segmentation",
       category: "Computer Vision & Research",
-      tech: ["Python", "OpenCV", "Deep Learning", "TensorFlow"],
+      tech: ["Python", "OpenCV", "Deep Learning", "Pytorch"],
       desc: "Automated detection of lung tumors using advanced image segmentation techniques. Includes a published research paper and certification.",
       icon: Brain,
       highlight: true, 
-      link: "#"
+      link: "https://github.com/rahulXpathak/lung-tumor-Segmentation",
+      pdf: lungTumorPdf,
+      // --- 2. USE THE IMPORTED IMAGE VARIABLES HERE ---
+      seminarCert: seminarCertImage, 
+      publishCert: publishCertImage 
     },
     {
       title: "Build Your Own Git (VCS)",
@@ -134,9 +148,57 @@ const Projects = () => {
                   <div className="p-3 bg-white/5 border border-white/10 text-blue-400 rounded-lg group-hover:bg-blue-500/20 group-hover:text-blue-300 group-hover:scale-110 transition-all duration-300 shadow-lg">
                     <project.icon size={24} />
                   </div>
+                  
+                  {/* Icon Links (Now includes certificate image links) */}
                   <div className="flex gap-3 translate-z-30">
-                     <a href={project.link} className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"><Github size={20} /></a>
-                     <a href={project.link} className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"><ExternalLink size={20} /></a>
+                     
+                     {/* 1. Paper Publish Certificate Button (FileText Icon) */}
+                     {project.publishCert && (
+                        <a 
+                           href={project.publishCert} 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           title="Paper Publish Certificate"
+                           className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
+                        >
+                           <FileText size={20} />
+                        </a>
+                     )}
+                     
+                     {/* 2. Seminar Certificate Button (FileCheck Icon) */}
+                     {project.seminarCert && (
+                        <a 
+                           href={project.seminarCert} 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           title="Seminar Completion Certificate"
+                           className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
+                        >
+                           <FileCheck size={20} />
+                        </a>
+                     )}
+                     
+                     {/* 3. Github Icon */}
+                     <a 
+                       href={project.link} 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       title="GitHub Repository"
+                       className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
+                     >
+                       <Github size={20} />
+                     </a>
+                     
+                     {/* 4. External Link / PDF Icon (Project Report) */}
+                     <a 
+                       href={project.pdf ? project.pdf : project.link} 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       title="Project Report (PDF)"
+                       className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
+                     >
+                       <ExternalLink size={20} />
+                     </a>
                   </div>
                 </div>
 
