@@ -117,7 +117,7 @@ const CTA = () => {
 
         {/* Action Button */}
         <a 
-          href="mailto:your.email@example.com" 
+          href="mailto:rahulpathak7966@gmail.com" 
           className="group relative inline-flex items-center justify-center px-12 py-6 bg-white text-black font-bold text-lg tracking-wider overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95"
         >
           <span className="relative z-10 flex items-center gap-3 group-hover:text-white transition-colors duration-300">
