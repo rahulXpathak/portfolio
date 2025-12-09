@@ -64,22 +64,22 @@ const Experience = () => {
 
   return (
     <section id="experience" className="py-20 bg-[#050505] relative border-t border-white/10 perspective-1000">
-      <div className="max-w-7xl mx-auto px-6">
-        
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+
         {/* TITLE: Left Aligned */}
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-16">
+        <h2 className="text-3xl md:text-6xl font-bold text-white mb-12 md:mb-16">
           CAREER JOURNEY
         </h2>
 
         {/* TIMELINE CONTAINER */}
-        {/* Added md:ml-48 to create space for the date badges on the left */}
-        <div ref={containerRef} className="relative ml-4 md:ml-48 space-y-12">
-          
-          {/* --- 3D VERTICAL LINE ANIMATION --- */}
-          <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-neutral-800/50 md:left-0 ml-4 md:ml-0"></div>
+        {/* Mobile: minimal left margin, Desktop: space for date badges */}
+        <div ref={containerRef} className="relative ml-6 md:ml-48 space-y-8 md:space-y-12">
 
-          <div 
-            className="absolute left-0 top-0 w-[2px] bg-gradient-to-b from-blue-500 via-purple-500 to-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.8)] transition-all duration-100 ease-linear md:left-0 ml-4 md:ml-0 z-10"
+          {/* --- 3D VERTICAL LINE ANIMATION --- */}
+          <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-neutral-800/50"></div>
+
+          <div
+            className="absolute left-0 top-0 w-[2px] bg-gradient-to-b from-blue-500 via-purple-500 to-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.8)] transition-all duration-100 ease-linear z-10"
             style={{ height: `${lineHeight}%` }}
           >
             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-4 bg-white blur-[4px] rounded-full"></div>
@@ -87,28 +87,28 @@ const Experience = () => {
 
 
           {/* --- TIMELINE ITEMS --- */}
-          <div ref={ref} className="space-y-12">
+          <div ref={ref} className="space-y-8 md:space-y-12">
             {history.map((item, index) => (
-              <div 
-                key={index} 
-                className={`relative pl-12 md:pl-20 group transition-all duration-700 ease-out 
+              <div
+                key={index}
+                className={`relative pl-8 md:pl-20 group transition-all duration-700 ease-out 
                   ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 {/* Timeline Dot */}
-                <div 
+                <div
                   className={`
-                    absolute left-[11px] md:left-[-5px] top-6 w-3 h-3 rounded-full z-20 border-2 transition-all duration-500
-                    ${lineHeight > (index * 25) + 10 
-                      ? 'bg-blue-500 border-white shadow-[0_0_15px_rgba(59,130,246,1)] scale-125' 
+                    absolute left-[-5px] top-1 md:top-6 w-3 h-3 rounded-full z-20 border-2 transition-all duration-500
+                    ${lineHeight > (index * 25) + 10
+                      ? 'bg-blue-500 border-white shadow-[0_0_15px_rgba(59,130,246,1)] scale-125'
                       : 'bg-neutral-900 border-neutral-700'
                     }
                   `}
                 ></div>
 
-                {/* Date Badge */}
-                <div className="absolute left-12 md:left-[-200px] top-4 z-10">
-                  <div className="grid place-items-center w-[170px] h-[44px] bg-black/80 border border-blue-900/30 rounded-sm backdrop-blur-sm group-hover:border-blue-500/50 group-hover:shadow-[0_0_15px_rgba(37,99,235,0.3)] transition-all duration-300">
+                {/* Date Badge - Mobile: inline at top, Desktop: positioned left */}
+                <div className="md:absolute md:left-[-200px] md:top-4 z-10 mb-4 md:mb-0">
+                  <div className="inline-flex md:grid md:place-items-center w-auto md:w-[170px] h-[36px] md:h-[44px] px-3 md:px-0 bg-black/80 border border-blue-900/30 rounded-sm backdrop-blur-sm group-hover:border-blue-500/50 group-hover:shadow-[0_0_15px_rgba(37,99,235,0.3)] transition-all duration-300">
                     <div className="flex items-center gap-2">
                       <Calendar size={13} className="shrink-0 text-blue-500" />
                       <span className="text-[11px] font-mono text-blue-100 font-bold whitespace-nowrap">
@@ -119,12 +119,12 @@ const Experience = () => {
                 </div>
 
                 {/* 3D Card */}
-                <div className="relative mt-14 md:mt-0 perspective-1000 w-full max-w-4xl">
+                <div className="relative perspective-1000 w-full max-w-4xl">
                   <div className="
                     relative 
                     bg-neutral-900/40 
                     border border-white/5 
-                    p-8 
+                    p-5 md:p-8 
                     rounded-xl
                     backdrop-blur-md
                     group-hover:border-blue-500/30
@@ -134,23 +134,23 @@ const Experience = () => {
                     <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl"></div>
 
                     <div className="relative z-10">
-                      <div className="flex items-center gap-4 mb-3">
-                        <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20 text-blue-400 group-hover:text-white group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300">
-                          {item.type === 'education' && <GraduationCap size={20} />}
-                          {item.type === 'work' && <Briefcase size={20} />}
-                          {item.type === 'certification' && <Award size={20} />}
+                      <div className="flex items-start md:items-center gap-3 md:gap-4 mb-3">
+                        <div className="p-2 bg-blue-500/10 rounded-lg border border-blue-500/20 text-blue-400 group-hover:text-white group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300 shrink-0">
+                          {item.type === 'education' && <GraduationCap size={18} className="md:w-5 md:h-5" />}
+                          {item.type === 'work' && <Briefcase size={18} className="md:w-5 md:h-5" />}
+                          {item.type === 'certification' && <Award size={18} className="md:w-5 md:h-5" />}
                         </div>
-                        
-                        <h3 className="text-xl font-bold text-white group-hover:text-blue-200 transition-colors">
+
+                        <h3 className="text-base md:text-xl font-bold text-white group-hover:text-blue-200 transition-colors">
                           {item.role}
                         </h3>
                       </div>
-                      
-                      <h4 className="text-gray-500 font-mono text-xs mb-4 pl-1">
+
+                      <h4 className="text-gray-500 font-mono text-[10px] md:text-xs mb-3 md:mb-4 pl-1">
                         @ {item.org}
                       </h4>
-                      
-                      <p className="text-gray-400 leading-relaxed text-sm pl-1 border-l-2 border-white/5 pl-4 group-hover:border-blue-500/50 transition-colors duration-300">
+
+                      <p className="text-gray-400 leading-relaxed text-xs md:text-sm border-l-2 border-white/5 pl-3 md:pl-4 group-hover:border-blue-500/50 transition-colors duration-300">
                         {item.desc}
                       </p>
                     </div>
@@ -162,7 +162,7 @@ const Experience = () => {
           </div>
         </div>
       </div>
-      
+
       <style>{`
         .perspective-1000 { perspective: 1000px; }
         .card-3d-hover {
