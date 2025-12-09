@@ -87,7 +87,7 @@ const Navbar = () => {
       >
         {/* Mobile Nav Links */}
         <div className="flex flex-col gap-6">
-          {navLinks.map((link, index) => (
+          {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
