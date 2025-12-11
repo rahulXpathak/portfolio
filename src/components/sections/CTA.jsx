@@ -147,7 +147,7 @@ const CTA = () => {
 
         {/* Secondary links */}
         <div className="mt-8 flex justify-center gap-6 text-sm">
-          <a href="tel:+917966000000" className="group text-gray-500 hover:text-white transition-colors flex items-center gap-2">
+          <a href="tel:+918509027843" className="group text-gray-500 hover:text-white transition-colors flex items-center gap-2">
             <span className="w-1 h-1 bg-blue-500 rounded-full group-hover:scale-150 transition-transform" />
             Call Me
           </a>
