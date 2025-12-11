@@ -1,37 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 
 const CustomCursor = () => {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
     const [isClicking, setIsClicking] = useState(false);
-    const [isVisible, setIsVisible] = useState(false);
+
+    // Check if touch device on initial render
+    const isTouchDevice = useMemo(() => {
+        if (typeof window === 'undefined') return true;
+        return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    }, []);
+
+    const handleMouseMove = useCallback((e) => {
+        setPosition({ x: e.clientX, y: e.clientY });
+    }, []);
+
+    const handleMouseDown = useCallback(() => setIsClicking(true), []);
+    const handleMouseUp = useCallback(() => setIsClicking(false), []);
+
+    const handleMouseOver = useCallback((e) => {
+        const target = e.target;
+        const isInteractive =
+            target.tagName === 'A' ||
+            target.tagName === 'BUTTON' ||
+            target.closest('a') ||
+            target.closest('button') ||
+            target.classList.contains('cursor-pointer') ||
+            window.getComputedStyle(target).cursor === 'pointer';
+
+        setIsHovering(isInteractive);
+    }, []);
 
     useEffect(() => {
-        // Only show on non-touch devices
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         if (isTouchDevice) return;
-
-        setIsVisible(true);
-
-        const handleMouseMove = (e) => {
-            setPosition({ x: e.clientX, y: e.clientY });
-        };
-
-        const handleMouseDown = () => setIsClicking(true);
-        const handleMouseUp = () => setIsClicking(false);
-
-        const handleMouseOver = (e) => {
-            const target = e.target;
-            const isInteractive =
-                target.tagName === 'A' ||
-                target.tagName === 'BUTTON' ||
-                target.closest('a') ||
-                target.closest('button') ||
-                target.classList.contains('cursor-pointer') ||
-                window.getComputedStyle(target).cursor === 'pointer';
-
-            setIsHovering(isInteractive);
-        };
 
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mousedown', handleMouseDown);
@@ -44,9 +45,10 @@ const CustomCursor = () => {
             document.removeEventListener('mouseup', handleMouseUp);
             document.removeEventListener('mouseover', handleMouseOver);
         };
-    }, []);
+    }, [isTouchDevice, handleMouseMove, handleMouseDown, handleMouseUp, handleMouseOver]);
 
-    if (!isVisible) return null;
+    // Don't render on touch devices
+    if (isTouchDevice) return null;
 
     return (
         <>

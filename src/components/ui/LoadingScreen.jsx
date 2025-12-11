@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 const LoadingScreen = ({ onLoadingComplete }) => {
     const [progress, setProgress] = useState(0);
@@ -31,14 +31,16 @@ const LoadingScreen = ({ onLoadingComplete }) => {
         }
     }, [progress, onLoadingComplete]);
 
-    // Generate floating particles
-    const particles = Array.from({ length: 30 }, (_, i) => ({
-        id: i,
-        size: Math.random() * 4 + 2,
-        left: Math.random() * 100,
-        delay: Math.random() * 3,
-        duration: Math.random() * 3 + 4,
-    }));
+    // Generate floating particles - memoized to avoid calling Math.random during re-renders
+    const particles = useMemo(() =>
+        Array.from({ length: 30 }, (_, i) => ({
+            id: i,
+            size: 2 + (i % 5),
+            left: (i * 3.33) % 100,
+            delay: (i * 0.1) % 3,
+            duration: 4 + (i % 4),
+        }))
+        , []);
 
     return (
         <div
