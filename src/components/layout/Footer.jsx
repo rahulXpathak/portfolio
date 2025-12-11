@@ -5,37 +5,37 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { 
-      name: 'LinkedIn', 
-      href: 'https://linkedin.com/in/your-profile-here', // REPLACE WITH YOUR LINKEDIN
-      icon: Linkedin 
+    {
+      name: 'LinkedIn',
+      href: 'https://linkedin.com/in/rahul-pathak-a3bb25246',
+      icon: Linkedin
     },
-    { 
-      name: 'GitHub', 
-      href: 'https://github.com/your-username', // REPLACE WITH YOUR GITHUB
-      icon: Github 
+    {
+      name: 'GitHub',
+      href: 'https://github.com/rahulXpathak',
+      icon: Github
     },
-    { 
-      name: 'Instagram', 
+    {
+      name: 'Instagram',
       href: 'https://instagram.com/your-handle', // REPLACE WITH YOUR INSTAGRAM
-      icon: Instagram 
+      icon: Instagram
     },
-    { 
-      name: 'Facebook', 
+    {
+      name: 'Facebook',
       href: 'https://facebook.com/your-profile', // REPLACE WITH YOUR FACEBOOK
-      icon: Facebook 
+      icon: Facebook
     },
-    { 
-      name: 'Email', 
+    {
+      name: 'Email',
       href: 'mailto:your.email@example.com', // REPLACE WITH YOUR EMAIL
-      icon: Mail 
+      icon: Mail
     }
   ];
 
   return (
     <footer className="bg-[#020202] text-white py-12 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-        
+
         {/* Brand & Copyright */}
         <div className="text-center md:text-left">
           <a href="#" className="text-2xl font-bold tracking-tighter hover:text-blue-500 transition-colors">
@@ -49,8 +49,8 @@ const Footer = () => {
         {/* Social Links */}
         <div className="flex flex-wrap justify-center gap-6 md:gap-8">
           {socialLinks.map((link) => (
-            <a 
-              key={link.name} 
+            <a
+              key={link.name}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"

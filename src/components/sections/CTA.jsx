@@ -151,7 +151,7 @@ const CTA = () => {
             <span className="w-1 h-1 bg-blue-500 rounded-full group-hover:scale-150 transition-transform" />
             Call Me
           </a>
-          <a href="https://linkedin.com/in/rahulpathak" target="_blank" rel="noopener noreferrer" className="group text-gray-500 hover:text-white transition-colors flex items-center gap-2">
+          <a href="https://linkedin.com/in/rahul-pathak-a3bb25246" target="_blank" rel="noopener noreferrer" className="group text-gray-500 hover:text-white transition-colors flex items-center gap-2">
             <span className="w-1 h-1 bg-purple-500 rounded-full group-hover:scale-150 transition-transform" />
             LinkedIn
           </a>

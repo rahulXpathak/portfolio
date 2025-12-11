@@ -29,7 +29,7 @@ const FloatingActions = () => {
         {
             name: 'LinkedIn',
             icon: Linkedin,
-            href: 'https://linkedin.com/in/rahulpathak',
+            href: 'https://linkedin.com/in/rahul-pathak-a3bb25246',
             gradient: 'from-blue-600 to-blue-800',
             glow: 'group-hover:shadow-[0_0_25px_rgba(59,130,246,0.4)]'
         },
