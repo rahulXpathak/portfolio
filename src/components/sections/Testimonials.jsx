@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award } from 'lucide-react';
+import { Award, Sparkles } from 'lucide-react';
 
 const Testimonials = () => {
   const certifications = [
@@ -26,11 +26,62 @@ const Testimonials = () => {
   ];
 
   return (
-    <section id="testimonials" className="py-20 md:py-32 bg-black border-t border-white/10 relative perspective-1000 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 mb-2">
-        <h2 className="text-3xl md:text-6xl font-bold text-white mb-3 md:mb-4">CREDENTIALS</h2>
-        <div className="flex items-center gap-2 text-blue-500 font-mono text-xs md:text-sm tracking-widest">
-          <span>// CERTIFIED EXCELLENCE</span>
+    <section id="testimonials" className="relative py-32 px-6 overflow-hidden perspective-1000">
+      {/* Background */}
+      <div className="absolute inset-0 bg-[#030303]" />
+
+      {/* Floating gradient orbs */}
+      <div className="absolute top-20 left-1/3 w-80 h-80 bg-yellow-600/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-40 right-20 w-72 h-72 bg-orange-600/10 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+
+        {/* Section Header - Consistent Style */}
+        <div className="mb-16 md:flex justify-between items-end pb-10 relative">
+          <div className="relative">
+            {/* Decorative badge */}
+            <div className="inline-flex items-center gap-2 mb-6">
+              <div className="w-10 h-[2px] bg-gradient-to-r from-yellow-500 to-transparent" />
+              <span className="text-yellow-400 text-xs font-mono tracking-[0.3em] uppercase">Achievements</span>
+              <Sparkles className="w-3 h-3 text-yellow-400" />
+            </div>
+
+            {/* Main title with gradient */}
+            <h2 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight leading-[0.9]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400">
+                MY
+              </span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 animate-gradient-x bg-[length:200%_200%]">
+                CREDENTIALS
+              </span>
+            </h2>
+
+            {/* Subtitle */}
+            <p className="text-gray-400 max-w-md text-lg leading-relaxed">
+              <span className="text-white font-medium">Certified excellence</span> through
+              <span className="text-yellow-400"> continuous learning</span> and
+              <span className="text-orange-400"> professional development</span>.
+            </p>
+          </div>
+
+          {/* Right side - Number */}
+          <div className="hidden md:flex flex-col items-end gap-4 mt-8 md:mt-0">
+            <span className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white/20 to-transparent">04</span>
+            <p className="text-gray-500 font-mono text-sm tracking-widest uppercase">// Credentials</p>
+          </div>
+
+          {/* Decorative line */}
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-yellow-500/50 via-orange-500/30 to-transparent" />
         </div>
       </div>
 

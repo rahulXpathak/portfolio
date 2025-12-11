@@ -1,17 +1,18 @@
 import React from 'react';
-import { 
-  Github, 
-  ExternalLink, 
-  Cpu, 
-  Code, 
-  Database, 
-  Brain, 
-  FileText, 
-  Layers, 
+import {
+  Github,
+  ExternalLink,
+  Cpu,
+  Code,
+  Database,
+  Brain,
+  FileText,
+  Layers,
   Globe,
-  MapPin,       
+  MapPin,
   GitBranch,
-  FileCheck 
+  FileCheck,
+  Sparkles
 } from 'lucide-react';
 
 // --- EXISTING PDF IMPORT ---
@@ -19,8 +20,8 @@ import lungTumorPdf from '../../assets/paper/Lung_Tumor_Sengmentation.pdf';
 
 // --- 1. NEW CERTIFICATE IMAGE IMPORTS (YOU MUST ADD THESE) ---
 // IMPORTANT: Adjust the path and file names below to match your files in src/assets
-import seminarCertImage from '../../assets/certificates/Seminar_Certificate.png'; 
-import publishCertImage from '../../assets/certificates/Publish_Certificate.png'; 
+import seminarCertImage from '../../assets/certificates/Seminar_Certificate.png';
+import publishCertImage from '../../assets/certificates/Publish_Certificate.png';
 
 import { useOnScreen } from '../../hooks/useOnScreen';
 
@@ -35,12 +36,12 @@ const Projects = () => {
       tech: ["Python", "OpenCV", "Deep Learning", "Pytorch"],
       desc: "Automated detection of lung tumors using advanced image segmentation techniques. Includes a published research paper and certification.",
       icon: Brain,
-      highlight: true, 
+      highlight: true,
       link: "https://github.com/rahulXpathak/lung-tumor-Segmentation",
       pdf: lungTumorPdf,
       // --- 2. USE THE IMPORTED IMAGE VARIABLES HERE ---
-      seminarCert: seminarCertImage, 
-      publishCert: publishCertImage 
+      seminarCert: seminarCertImage,
+      publishCert: publishCertImage
     },
     {
       title: "Build Your Own Git (VCS)",
@@ -102,24 +103,68 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-32 bg-[#050505] border-t border-white/10 perspective-2000">
-      <div className="max-w-7xl mx-auto px-6">
-        
-        {/* Section Header */}
-        <div className="mb-20 flex flex-col md:flex-row justify-between items-end gap-6">
-          <div>
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">SELECTED WORKS</h2>
-            <div className="h-1 w-20 bg-blue-600"></div>
+    <section id="projects" className="relative py-32 px-6 overflow-hidden perspective-2000">
+      {/* Background */}
+      <div className="absolute inset-0 bg-[#030303]" />
+
+      {/* Floating gradient orbs */}
+      <div className="absolute top-20 right-20 w-80 h-80 bg-purple-600/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-40 left-10 w-72 h-72 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+
+        {/* Section Header - Consistent Style */}
+        <div className="mb-20 md:flex justify-between items-end pb-10 relative">
+          <div className="relative">
+            {/* Decorative badge */}
+            <div className="inline-flex items-center gap-2 mb-6">
+              <div className="w-10 h-[2px] bg-gradient-to-r from-purple-500 to-transparent" />
+              <span className="text-purple-400 text-xs font-mono tracking-[0.3em] uppercase">My Work</span>
+              <Sparkles className="w-3 h-3 text-purple-400" />
+            </div>
+
+            {/* Main title with gradient */}
+            <h2 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight leading-[0.9]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400">
+                SELECTED
+              </span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 animate-gradient-x bg-[length:200%_200%]">
+                WORKS
+              </span>
+            </h2>
+
+            {/* Subtitle */}
+            <p className="text-gray-400 max-w-md text-lg leading-relaxed">
+              A collection of <span className="text-white font-medium">projects</span> that showcase my
+              <span className="text-purple-400"> technical skills</span> and
+              <span className="text-pink-400"> problem-solving</span> abilities.
+            </p>
           </div>
-          <div className="text-right hidden md:block">
-            <p className="text-gray-500 font-mono text-sm">SHIP IT.</p>
+
+          {/* Right side - Number */}
+          <div className="hidden md:flex flex-col items-end gap-4 mt-8 md:mt-0">
+            <span className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white/20 to-transparent">02</span>
+            <p className="text-gray-500 font-mono text-sm tracking-widest uppercase">// Projects</p>
           </div>
+
+          {/* Decorative line */}
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-purple-500/50 via-pink-500/30 to-transparent" />
         </div>
 
         {/* Grid */}
         <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <div 
+            <div
               key={index}
               // 3D CARD CONTAINER
               className={`
@@ -148,63 +193,63 @@ const Projects = () => {
                   <div className="p-3 bg-white/5 border border-white/10 text-blue-400 rounded-lg group-hover:bg-blue-500/20 group-hover:text-blue-300 group-hover:scale-110 transition-all duration-300 shadow-lg">
                     <project.icon size={24} />
                   </div>
-                  
+
                   {/* Icon Links (Now includes certificate image links) */}
                   <div className="flex gap-3 translate-z-30">
-                     
-                     {/* 1. Paper Publish Certificate Button (FileText Icon) */}
-                     {project.publishCert && (
-                        <a 
-                           href={project.publishCert} 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           title="Paper Publish Certificate"
-                           className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
-                        >
-                           <FileText size={20} />
-                        </a>
-                     )}
-                     
-                     {/* 2. Seminar Certificate Button (FileCheck Icon) */}
-                     {project.seminarCert && (
-                        <a 
-                           href={project.seminarCert} 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           title="Seminar Completion Certificate"
-                           className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
-                        >
-                           <FileCheck size={20} />
-                        </a>
-                     )}
-                     
-                     {/* 3. Github Icon */}
-                     <a 
-                       href={project.link} 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       title="GitHub Repository"
-                       className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
-                     >
-                       <Github size={20} />
-                     </a>
-                     
-                     {/* 4. External Link / PDF Icon (Project Report) */}
-                     <a 
-                       href={project.pdf ? project.pdf : project.link} 
-                       target="_blank" 
-                       rel="noopener noreferrer"
-                       title="Project Report (PDF)"
-                       className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
-                     >
-                       <ExternalLink size={20} />
-                     </a>
+
+                    {/* 1. Paper Publish Certificate Button (FileText Icon) */}
+                    {project.publishCert && (
+                      <a
+                        href={project.publishCert}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Paper Publish Certificate"
+                        className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
+                      >
+                        <FileText size={20} />
+                      </a>
+                    )}
+
+                    {/* 2. Seminar Certificate Button (FileCheck Icon) */}
+                    {project.seminarCert && (
+                      <a
+                        href={project.seminarCert}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Seminar Completion Certificate"
+                        className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
+                      >
+                        <FileCheck size={20} />
+                      </a>
+                    )}
+
+                    {/* 3. Github Icon */}
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="GitHub Repository"
+                      className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
+                    >
+                      <Github size={20} />
+                    </a>
+
+                    {/* 4. External Link / PDF Icon (Project Report) */}
+                    <a
+                      href={project.pdf ? project.pdf : project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Project Report (PDF)"
+                      className="text-gray-500 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-md hover:scale-110 transform"
+                    >
+                      <ExternalLink size={20} />
+                    </a>
                   </div>
                 </div>
 
                 {/* Content */}
                 <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-blue-200 transition-colors relative z-10 translate-z-10">{project.title}</h3>
-                
+
                 {/* Subtitle / Date */}
                 <div className="text-xs font-mono text-gray-500 mb-4 uppercase tracking-wider relative z-10">
                   {project.date ? project.date : project.category}

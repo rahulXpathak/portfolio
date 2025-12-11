@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -11,12 +12,42 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Active section tracking with IntersectionObserver
+  useEffect(() => {
+    const sections = ['features', 'projects', 'testimonials', 'founder', 'cta'];
+
+    const observers = sections.map((sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (!element) return null;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(sectionId);
+          }
+        },
+        { threshold: 0.3, rootMargin: '-20% 0px -50% 0px' }
+      );
+
+      observer.observe(element);
+      return { observer, element };
+    });
+
+    return () => {
+      observers.forEach((obs) => {
+        if (obs) obs.observer.disconnect();
+      });
+    };
+  }, []);
+
   const navLinks = [
-    { name: 'Skills', href: '#features' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Certifications', href: '#testimonials' },
-    { name: 'About', href: '#founder' },
+    { name: 'Skills', href: '#features', section: 'features' },
+    { name: 'Projects', href: '#projects', section: 'projects' },
+    { name: 'Certifications', href: '#testimonials', section: 'testimonials' },
+    { name: 'About', href: '#founder', section: 'founder' },
   ];
+
+  const isActive = (section) => activeSection === section;
 
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b border-white/10 ${scrolled ? 'bg-black/90 backdrop-blur-md py-4' : 'bg-transparent py-6'}`}>
@@ -47,19 +78,42 @@ const Navbar = () => {
             <a
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-gray-400 hover:text-white transition-colors relative overflow-hidden group"
+              className={`text-sm font-medium transition-colors relative overflow-hidden group ${isActive(link.section) ? 'text-white' : 'text-gray-400 hover:text-white'
+                }`}
             >
               <span className="relative z-10">{link.name}</span>
-              <span className="absolute bottom-0 left-0 w-full h-px bg-blue-500 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
+              {/* Underline - always visible for active, shows on hover for inactive */}
+              <span
+                className={`absolute bottom-0 left-0 w-full h-[2px] bg-blue-500 transition-transform duration-300 ${isActive(link.section) ? 'translate-x-0' : '-translate-x-full group-hover:translate-x-0'
+                  }`}
+              />
+              {/* Active dot indicator */}
+              {isActive(link.section) && (
+                <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]" />
+              )}
             </a>
           ))}
 
-          {/* Action Button - Updated Title */}
+          {/* Premium Action Button */}
           <a
             href="#cta"
-            className="bg-white text-black px-6 py-2 text-sm font-bold hover:bg-blue-600 hover:text-white transition-all duration-300 active:scale-95"
+            className={`group relative px-6 py-2.5 text-sm font-bold overflow-hidden transition-all duration-300 active:scale-95 rounded-lg transform hover:-translate-y-0.5 ${isActive('cta')
+              ? 'shadow-[0_0_30px_rgba(59,130,246,0.5)]'
+              : ''
+              }`}
           >
-            LET'S CONNECT
+            {/* Gradient border background */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 rounded-lg animate-gradient-nav" />
+
+            {/* Inner background - white normally, transparent on hover */}
+            <div className={`absolute inset-[1.5px] rounded-[6px] transition-all duration-300 ${isActive('cta') ? 'bg-transparent' : 'bg-black group-hover:bg-transparent'
+              }`} />
+
+            {/* Shine effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out rounded-lg" />
+
+            {/* Text */}
+            <span className="relative z-10 text-white">LET'S CONNECT</span>
           </a>
         </div>
 
@@ -69,7 +123,12 @@ const Navbar = () => {
           className="md:hidden text-white p-2 z-[60] relative"
           aria-label="Toggle menu"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <div className="relative w-6 h-6">
+            {/* Animated hamburger lines */}
+            <span className={`absolute left-0 w-full h-0.5 bg-white transition-all duration-300 ease-out ${isOpen ? 'top-3 rotate-45' : 'top-1'}`} />
+            <span className={`absolute left-0 top-3 w-full h-0.5 bg-white transition-all duration-300 ease-out ${isOpen ? 'opacity-0 translate-x-2' : 'opacity-100'}`} />
+            <span className={`absolute left-0 w-full h-0.5 bg-white transition-all duration-300 ease-out ${isOpen ? 'top-3 -rotate-45' : 'top-5'}`} />
+          </div>
         </button>
       </div>
 
@@ -92,8 +151,12 @@ const Navbar = () => {
               key={link.name}
               href={link.href}
               onClick={() => setIsOpen(false)}
-              className="text-xl font-bold text-white hover:text-blue-500 transition-colors duration-300 py-2 border-b border-white/5"
+              className={`text-xl font-bold transition-colors duration-300 py-2 border-b border-white/5 flex items-center gap-3 ${isActive(link.section) ? 'text-blue-500' : 'text-white hover:text-blue-500'
+                }`}
             >
+              {isActive(link.section) && (
+                <span className="w-2 h-2 bg-blue-500 rounded-full shadow-[0_0_8px_#3b82f6]" />
+              )}
               {link.name}
             </a>
           ))}
@@ -116,6 +179,18 @@ const Navbar = () => {
           onClick={() => setIsOpen(false)}
         />
       )}
+
+      {/* Animations */}
+      <style>{`
+        @keyframes gradient-nav {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        .animate-gradient-nav {
+          background-size: 200% 200%;
+          animation: gradient-nav 3s ease infinite;
+        }
+      `}</style>
     </nav>
   );
 };

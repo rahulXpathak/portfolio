@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Briefcase, GraduationCap, Calendar, Award } from 'lucide-react';
+import { Briefcase, GraduationCap, Calendar, Award, Sparkles } from 'lucide-react';
 import { useOnScreen } from '../../hooks/useOnScreen';
 
 const Experience = () => {
@@ -63,13 +63,63 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-20 bg-[#050505] relative border-t border-white/10 perspective-1000">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+    <section id="experience" className="relative py-32 px-6 overflow-hidden perspective-1000">
+      {/* Background */}
+      <div className="absolute inset-0 bg-[#030303]" />
 
-        {/* TITLE: Left Aligned */}
-        <h2 className="text-3xl md:text-6xl font-bold text-white mb-12 md:mb-16">
-          CAREER JOURNEY
-        </h2>
+      {/* Floating gradient orbs */}
+      <div className="absolute top-40 left-20 w-80 h-80 bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-20 right-20 w-72 h-72 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* Grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.02] pointer-events-none"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+
+        {/* Section Header - Consistent Style */}
+        <div className="mb-20 md:flex justify-between items-end pb-10 relative">
+          <div className="relative">
+            {/* Decorative badge */}
+            <div className="inline-flex items-center gap-2 mb-6">
+              <div className="w-10 h-[2px] bg-gradient-to-r from-cyan-500 to-transparent" />
+              <span className="text-cyan-400 text-xs font-mono tracking-[0.3em] uppercase">My Path</span>
+              <Sparkles className="w-3 h-3 text-cyan-400" />
+            </div>
+
+            {/* Main title with gradient */}
+            <h2 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tight leading-[0.9]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400">
+                CAREER
+              </span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 animate-gradient-x bg-[length:200%_200%]">
+                JOURNEY
+              </span>
+            </h2>
+
+            {/* Subtitle */}
+            <p className="text-gray-400 max-w-md text-lg leading-relaxed">
+              From <span className="text-white font-medium">education</span> to
+              <span className="text-cyan-400"> professional experience</span>, building
+              <span className="text-blue-400"> expertise</span> step by step.
+            </p>
+          </div>
+
+          {/* Right side - Number */}
+          <div className="hidden md:flex flex-col items-end gap-4 mt-8 md:mt-0">
+            <span className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white/20 to-transparent">03</span>
+            <p className="text-gray-500 font-mono text-sm tracking-widest uppercase">// Experience</p>
+          </div>
+
+          {/* Decorative line */}
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-cyan-500/50 via-blue-500/30 to-transparent" />
+        </div>
 
         {/* TIMELINE CONTAINER */}
         {/* Mobile: minimal left margin, Desktop: space for date badges */}
